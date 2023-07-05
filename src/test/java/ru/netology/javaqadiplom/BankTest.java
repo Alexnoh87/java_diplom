@@ -5,7 +5,16 @@ import org.junit.jupiter.api.Test;
 
 public class BankTest {
 
+    // по сути надо протестировать все сочетания пар счетов (результата работы их методов)
+    // т.к. если хоть один из пары дал сбой, надо отменять всю транзакцию
+    // FROM -> TO => RESULT
+    // 1). true->true => true
+    // 2). true->false => false
+    // 3). false->true => false
+    // 4). false->false => false
+
     //Перевод суммы с кредитного счёта на сберегательный счёт
+    // схема TRUE -> TRUE => TRUE
     @Test
     public void shouldTransferFromCreditAccountToSavingAccount() {
         Bank trans = new Bank();
@@ -30,6 +39,7 @@ public class BankTest {
     }
 
     //Перевод суммы в рамках баланса со сберегательного счёта на кредитный счёт
+    // схема TRUE -> TRUE => TRUE
     @Test
     public void shouldTransferFromSavingAccountToCreditAccount() {
         Bank trans = new Bank();
@@ -54,6 +64,7 @@ public class BankTest {
     }
 
     //Перевод всей суммы с кредитного счета, включая средства кредита
+    // схема TRUE -> TRUE => TRUE
     @Test
     public void shouldTransferMaxAmountFromCreditAccountToSavingAccount() {
         Bank trans = new Bank();
@@ -78,6 +89,7 @@ public class BankTest {
     }
 
     //Перевод всей суммы со сберегательного счета на кредитный
+    // схема TRUE -> TRUE => TRUE
     @Test
     public void shouldTransferMaxAmountFromSavingAccountToCreditAccount() {
         Bank trans = new Bank();
@@ -102,6 +114,7 @@ public class BankTest {
     }
 
     //Перевод 0 со сберегательного счета на кредитный
+    // схема TRUE -> TRUE => TRUE
     @Test
     public void shouldTransferNullAmountFromSavingAccountToCreditAccount() {
         Bank trans = new Bank();
@@ -126,6 +139,7 @@ public class BankTest {
     }
 
     //Перевод 0 с кредитного счета на сберегательный
+    // схема TRUE -> TRUE => TRUE
     @Test
     public void shouldTransferNullAmountFromCreditAccountToSavingAccount() {
         Bank trans = new Bank();
@@ -183,6 +197,7 @@ public class BankTest {
     }
 
     //Перевод отрицательной суммы с кредитного на сберегательный счет
+    // схема FALSE -> FALSE => FALSE
     @Test
     public void shouldTransferNegativeAmountFromCreditAccountToSavingAccount() {
         Bank trans = new Bank();
@@ -207,6 +222,7 @@ public class BankTest {
     }
 
     //Перевод отрицательной суммы со сберегательного на кредитный счет
+    // схема FALSE -> FALSE => FALSE
     @Test
     public void shouldTransferNegativeAmountFromSavingAccountToCreditAccount() {
         Bank trans = new Bank();
@@ -231,6 +247,7 @@ public class BankTest {
     }
 
     //Перевод суммы, превышающий баланс, со сберегательного на кредитный счет
+    // схема FALSE -> TRUE => FALSE
     @Test
     public void shouldTransferExceedingAmountFromSavingAccountToCreditAccount() {
         Bank trans = new Bank();
@@ -255,6 +272,7 @@ public class BankTest {
     }
 
     //Перевод суммы, превышающий баланс, с кредитного на сберегательный счет (в рамках всего лимита)
+    // схема TRUE -> TRUE => TRUE
     @Test
     public void shouldTransferExceedingAmountWithoutCreditFromCreditAccountToSavingAccount() {
         Bank trans = new Bank();
@@ -279,6 +297,7 @@ public class BankTest {
     }
 
     //Перевод суммы, превышающий общий баланс, с кредитного на сберегательный счет
+    // схема FALSE -> FALSE => FALSE
     @Test
     public void shouldTransferExceedingAmountFromCreditAccountToSavingAccount() {
         Bank trans = new Bank();
@@ -303,6 +322,7 @@ public class BankTest {
     }
 
     //Перевод с кредитного счёта на сберегательный счёт (превышает макс баланс)
+    // схема TRUE -> FALSE => FALSE
     @Test
     public void shouldTransferFromCreditAccountToSavingAccountMaxBalance() {
         Bank trans = new Bank();
@@ -327,6 +347,7 @@ public class BankTest {
     }
 
     //Перевод со сберегательного на кредитный счёт (остается меньше мин баланса)
+    // схема FALSE -> TRUE => FALSE
     @Test
     public void shouldTransferFromSavingAccountMinBalanceToCreditAccount() {
         Bank trans = new Bank();
@@ -349,4 +370,5 @@ public class BankTest {
         Assertions.assertEquals(5_000, credit.getBalance());
         Assertions.assertEquals(4_000, saving.getBalance());
     }
+
 }
